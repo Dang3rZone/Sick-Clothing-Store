@@ -1,5 +1,7 @@
-import 'dotenv/config';
+import { createAuth } from '@keystone-next/auth';
 import { config, createSchema } from '@keystone-next/keystone/schema';
+import { User } from './schemas/User';
+import 'dotenv/config';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits';
@@ -9,7 +11,17 @@ const sessionConfig = {
   secret: process.env.COOKIE_SECRET,
 };
 
-export default config({
+const { withAuth } = createAuth({
+  listKey: 'User',
+  identityField: 'email',
+  secretField: 'password',
+  initFirstItem: {
+    fields: ['name', 'email', 'password'],
+    // TODO: add in initial roles here
+  },
+});
+
+export default withAuth(config({
   server: {
     cors: {
       origin: [process.env.FRONTEND_URL],
@@ -23,6 +35,7 @@ export default config({
   },
   lists: createSchema({
     // schema items go here
+    User,
   }),
   ui: {
     // TODO: change this for roles
@@ -30,3 +43,4 @@ export default config({
   },
   // TODO: add session value here
 });
+)

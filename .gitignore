@@ -10,3 +10,5 @@ variables.env
 .keystone
 
 backend/kite-installer
+
+frontend/fancontrol-gui/

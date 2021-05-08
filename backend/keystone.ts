@@ -10,6 +10,7 @@ import { Product } from './schemas/Product';
 import { User } from './schemas/User';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
+import { sendPasswordResetEmail } from './lib/mail';
 
 const databaseURL =
   process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits';
@@ -30,6 +31,8 @@ const { withAuth } = createAuth({
   passwordResetLink: {
     async sendToken(args) {
       console.log(args);
+      // send email
+      await sendPasswordResetEmail(args.token, args.identity);
     },
   },
 });

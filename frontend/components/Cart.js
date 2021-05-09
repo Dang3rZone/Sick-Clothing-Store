@@ -14,7 +14,7 @@ const CartItemStyles = styled.li`
   grid-template-columns: auto 1fr auto;
   img {
     margin-right: 1rem;
-    border-radius: 5px;
+    /* border-radius: 5px; */
   }
   h3,
   p {

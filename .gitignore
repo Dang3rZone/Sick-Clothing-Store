@@ -12,3 +12,5 @@ variables.env
 backend/kite-installer
 
 frontend/fancontrol-gui/
+
+frontend/.env.local
